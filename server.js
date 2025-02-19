@@ -19,7 +19,7 @@ app.post("/sms", (req, res) => {
     const { Body, From } = req.body;
     console.log(`Received message: "${Body}" from ${From}`);
 
-    const twiml = new twilio.twiml.MessagingResponse();
+    const twiml = new twilio.twiml.VoiceResponse();
 	
 const gather = twiml.gather({
     numDigits: 1,
