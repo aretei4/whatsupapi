@@ -20,7 +20,18 @@ app.post("/sms", (req, res) => {
     console.log(`Received message: "${Body}" from ${From}`);
 
     const twiml = new twilio.twiml.MessagingResponse();
-    twiml.message(`You subash said: "${Body}"`);
+	
+const gather = twiml.gather({
+    numDigits: 1,
+    action: '/process-selection',
+	input: 'dtmf',
+	timeout: 5
+  });
+    gather.say('For sales, press 1. For support, press 2.');
+	twiml.say('We didnt receive any input. Goodbye!');
+  //-----------------------------------------------------
+  
+  //  twiml.message(`You subash said: "${Body}"`);
 
     res.type("text/xml").send(twiml.toString());
 });
