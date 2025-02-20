@@ -31,14 +31,13 @@ app.post("/subu/sms", (req, res) => {
 
 app.post("/sms", (req, res) => {
 	const { Body, From } = req.body;
-	  console.log(`📩 Message from: ${Body}`);
-    const from = req.body.From;  // Sender's WhatsApp number
-   // const body = req.body.Body;  // Message text
+	 const from = req.body.From;  // Sender's WhatsApp number
     const messageSid = req.body.MessageSid;  // Unique message ID
     console.log(`Received message: "${Body}" from ${From}`);
-    console.log(`📩 Message from: ${from}`);
-    console.log(`💬 Message: ${Body}`);
-    console.log(`🔹 Message SID: ${messageSid}`);
+	const reque = service.parseRequest(req)
+   // console.log(`📩 Message from: ${from}`);
+   // console.log(`💬 Message: ${Body}`);
+  //  console.log(`🔹 Message SID: ${messageSid}`);
 
     // Process the message
     const replyMessage = service.processMessage(Body);
