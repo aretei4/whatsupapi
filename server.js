@@ -1,4 +1,5 @@
 require("dotenv").config();
+var service = require('./service/service')
 const express = require("express");
 const twilio = require("twilio");
 
@@ -15,25 +16,39 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Handle incoming messages from Twilio
-app.post("/sms", (req, res) => {
+app.post("/subu/sms", (req, res) => {
     const { Body, From } = req.body;
     console.log(`Received message: "${Body}" from ${From}`);
-
-    const twiml = new twilio.twiml.VoiceResponse();
+		 console.log(service.processMessage(Body))
+    const twiml = new twilio.twiml.MessagingResponse();
 	
-const gather = twiml.gather({
-    numDigits: 1,
-    action: '/process-selection',
-	input: 'dtmf',
-	timeout: 5
-  });
-    gather.say('For sales, press 1. For support, press 2.');
-	twiml.say('We didnt receive any input. Goodbye!');
-  //-----------------------------------------------------
+
   
-  //  twiml.message(`You subash said: "${Body}"`);
+  twiml.message(`You subash said: "${Body}"`);
 
     res.type("text/xml").send(twiml.toString());
+});
+
+app.post("/sms", (req, res) => {
+	  console.log(`📩 Message from: ${req}`);
+    const from = req.body.From;  // Sender's WhatsApp number
+    const body = req.body.Body;  // Message text
+    const messageSid = req.body.MessageSid;  // Unique message ID
+
+    console.log(`📩 Message from: ${from}`);
+    console.log(`💬 Message: ${body}`);
+    console.log(`🔹 Message SID: ${messageSid}`);
+
+    // Process the message
+    const replyMessage = service.processMessage(body);
+
+    // Create Twilio XML response
+    const twiml = new twilio.twiml.MessagingResponse();
+    twiml.message(replyMessage);
+
+    // Send XML response back to Twilio
+    res.set("Content-Type", "text/xml");
+    res.send(twiml.toString());
 });
 
 // Send an SMS via Twilio API
