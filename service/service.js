@@ -1,4 +1,5 @@
 var service = {};
+let conversationState=[];
 service.processMessage = function (body) {
 	 if (body === "hi") {
         return "Hello! How can I help you?";
@@ -24,7 +25,7 @@ service.parseRequest = function (req) {
 }
 service.coversation = function (userMessage,fromNumber) {
 	 // const fromNumber = req.body.From;
-	var conversationState=[];
+	
 	if (!conversationState[fromNumber]) {
         conversationState[fromNumber] = { step: 1 };
     }
@@ -33,22 +34,22 @@ service.coversation = function (userMessage,fromNumber) {
 	var reply = "Sorry, I didn’t understand that."
     switch (state.step) {
         case 1:
-            reply ="Hi! What is your name?";
+            reply ="Hi! welcome to Utkal Hospital, may I Know your name?";
             state.step = 2;
             break;
         case 2:
             state.name = userMessage;
-            reply ="Nice to meet you, ${state.name}! How old are you?";
+            reply ='Nice to meet you,'+state.name +'! How old are you?';
             state.step = 3;
             break;
         case 3:
             state.age = userMessage;
-            reply ="Got it, ${state.name}. You are ${state.age} years old. What is your favorite color?";
+            reply ="Got it, "+state.name+". You are "+state.age+" years old. What is your favorite time for appointment ?";
             state.step = 4;
             break;
         case 4:
             state.color = userMessage;
-            reply ="Awesome, ${state.name}! Your favorite color is ${state.color}. Thanks for chatting!";
+            reply ="Awesome, "+state.name+"! Your appointment  is fixed at "+state.color+". Thanks for chatting!";
             delete conversationState[fromNumber]; // Reset conversation
             break;
         default:
