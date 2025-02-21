@@ -29,16 +29,12 @@ app.post("/subu/sms", (req, res) => {
     res.type("text/xml").send(twiml.toString());
 });
 
-app.post("/sms", (req, res) => {
+app.post("/smsbk", (req, res) => {
 	const { Body, From } = req.body;
 	 const from = req.body.From;  // Sender's WhatsApp number
     const messageSid = req.body.MessageSid;  // Unique message ID
     console.log(`Received message: "${Body}" from ${From}`);
 	const reque = service.parseRequest(req)
-   // console.log(`📩 Message from: ${from}`);
-   // console.log(`💬 Message: ${Body}`);
-  //  console.log(`🔹 Message SID: ${messageSid}`);
-
     // Process the message
     const replyMessage = service.processMessage(Body);
 
@@ -51,6 +47,22 @@ app.post("/sms", (req, res) => {
     res.send(twiml.toString());
 });
 
+app.post("/sms", (req, res) => {
+	const reque = service.parseRequest(req)
+	const { Body, From } = req.body;
+	const frm = req.body.From;  // Sender's WhatsApp number
+	const messageSid = req.body.MessageSid;  // Unique message ID
+	console.log(`Received message: "${Body}" from ${From}`);
+	
+	const replyMessage = service.coversation(Body,frm)
+	// Create Twilio XML response
+    const twiml = new twilio.twiml.MessagingResponse();
+    twiml.message(replyMessage);
+
+    // Send XML response back to Twilio
+    res.set("Content-Type", "text/xml");
+    res.send(twiml.toString());
+});
 // Send an SMS via Twilio API
 app.post("/send-sms", async (req, res) => {
     const { to, message } = req.body;

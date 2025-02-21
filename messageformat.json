@@ -1,0 +1,22 @@
+{
+"Body":"Hi",
+"from":"whatsapp:+919535205051",
+"messageId":"SMedd60e540aa6eb4d54b2b752372a39aa",
+	"other":{
+	"SmsMessageSid":"SMedd60e540aa6eb4d54b2b752372a39aa",
+	"NumMedia":"0",
+	"ProfileName":"Subash",
+	"MessageType":"text",
+	"SmsSid":"SMedd60e540aa6eb4d54b2b752372a39aa",
+	"WaId":"919535205051",
+	"SmsStatus":"received",
+	"Body":"Hi",
+	"To":"whatsapp:+14155238886",
+	"NumSegments":"1",
+	"ReferralNumMedia":"0",
+	"MessageSid":"SMedd60e540aa6eb4d54b2b752372a39aa",
+	"AccountSid":"AC055a0fd33ac8ef95f5f506f4d901092a",
+	"From":"whatsapp:+919535205051",
+	"ApiVersion":"2010-04-01"
+	}
+}
