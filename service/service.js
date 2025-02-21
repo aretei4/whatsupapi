@@ -19,7 +19,7 @@ service.parseRequest = function (req) {
 	parsereq.from = From
 	parsereq.messageId = req.body.MessageSid;
 	parsereq.other = req.body
-	console.log(" before sending"+JSON.stringify(parsereq))
+	//console.log(" before sending"+JSON.stringify(parsereq))
 	return parsereq;
 	
 }

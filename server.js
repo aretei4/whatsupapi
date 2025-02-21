@@ -53,8 +53,12 @@ app.post("/sms", (req, res) => {
 	const frm = req.body.From;  // Sender's WhatsApp number
 	const messageSid = req.body.MessageSid;  // Unique message ID
 	console.log(`Received message: "${Body}" from ${From}`);
+	var replyMessage = "Don't recevie message please try once"
+	if(Body){
+		replyMessage = service.coversation(Body,frm)
+	}
 	
-	const replyMessage = service.coversation(Body,frm)
+	console.log(" reply message "+replyMessage);
 	// Create Twilio XML response
     const twiml = new twilio.twiml.MessagingResponse();
     twiml.message(replyMessage);

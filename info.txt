@@ -8,3 +8,5 @@ Sachi@2010
 TWILIO_ACCOUNT_SID=AC055a0fd33ac8ef95f5f506f4d901092a
 TWILIO_AUTH_TOKEN=1c2c0eaa65e35f3ff224da25e4e88489
 TWILIO_PHONE_NUMBER=+18283309693
+
+pm2 start app.js --name my-app --namespace my-namespace
