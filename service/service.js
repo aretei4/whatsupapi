@@ -36,7 +36,7 @@ service.coversation = function (req) {
 	var request = service.parseRequest(req)
 	const userMessage = request.message;
 	const  fromNumber = request.from;
-	defaultResponse = constants.getMenList(request);
+//	defaultResponse = constants.getMenList(request);
 	if (!conversationState[fromNumber]) {
         conversationState[fromNumber] = { step: 1 };
     }

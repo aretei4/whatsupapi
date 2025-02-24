@@ -15,7 +15,7 @@ var defaultResponse = constants.getMenList(request);
             defaultResponse
         ]
     };
-
+	 res.setHeader("Content-Type", "application/json");
     res.json(response); // Send JSON response
 });
 
