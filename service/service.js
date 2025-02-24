@@ -45,7 +45,7 @@ service.coversation = function (req) {
 	var reply = "Sorry, I didn’t understand that."
     switch (state.step) {
         case 1:
-            reply =defaultResponse;
+            reply ="Hi! welcome to Utkal Hospital, may I Know your name?";
 				
 			//"Hi! welcome to Utkal Hospital, may I Know your name?";
             state.step = 2;
