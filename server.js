@@ -55,7 +55,7 @@ app.post("/sms", (req, res) => {
 	console.log(`Received message: "${Body}" from ${From}`);
 	var replyMessage = "Don't recevie message please try once"
 	if(Body){
-		replyMessage = service.coversation(Body,frm)
+		replyMessage = service.coversation(req)
 	}
 	
 	console.log(" reply message "+replyMessage);

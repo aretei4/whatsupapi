@@ -1,3 +1,4 @@
+var constants = require('./constants')
 var service = {};
 let conversationState=[];
 var defaultResponse = "Welcome! Utkal Hosptial ! Please choose an option:\n"
@@ -29,9 +30,12 @@ service.parseRequest = function (req) {
 	return parsereq;
 	
 }
-service.coversation = function (userMessage,fromNumber) {
-	 // const fromNumber = req.body.From;
-	
+service.coversation = function (req) {
+	 // 
+	var request = service.parseRequest(req)
+	const fromNumber = request.message;
+	const userMessage = request.from;
+	defaultResponse = constants.getMenList(request);
 	if (!conversationState[fromNumber]) {
         conversationState[fromNumber] = { step: 1 };
     }
