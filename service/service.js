@@ -29,7 +29,7 @@ service.parseRequest = function (req) {
 	return parsereq;
 	
 }
-service.coversation = async function (userMessage,fromNumber) {
+service.coversation = function (userMessage,fromNumber) {
 	 // const fromNumber = req.body.From;
 	
 	if (!conversationState[fromNumber]) {
@@ -40,7 +40,7 @@ service.coversation = async function (userMessage,fromNumber) {
 	var reply = "Sorry, I didn’t understand that."
     switch (state.step) {
         case 1:
-            reply ="Welcome! Utkal Hosptial ! Please choose an option:\n";
+            reply =defaultResponse;
 				
 			//"Hi! welcome to Utkal Hospital, may I Know your name?";
             state.step = 2;
