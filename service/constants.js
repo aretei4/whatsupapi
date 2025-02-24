@@ -41,7 +41,7 @@ constants.getMenList=function(req){
 	console.log(" before menu list sending"+JSON.stringify(req))
 	menuForOrder.to = req.other.To;
 	menuForOrder.from = req.from;
-	console.log(" before menu list sending"+JSON.stringify(menuForOrder))
+	console.log(" after  menu list sending"+JSON.stringify(menuForOrder))
 	return menuForOrder;	
 }
 module.exports =constants;
