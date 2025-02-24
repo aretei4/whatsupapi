@@ -38,8 +38,10 @@ var menuForOrder = {
 }
 
 constants.getMenList=function(req){
-	menuForOrder.to = req.to;
+	console.log(" before menu list sending"+JSON.stringify(menuForOrder))
+	menuForOrder.to = req.other.To;
 	menuForOrder.from = req.from;
+	console.log(" before menu list sending"+JSON.stringify(menuForOrder))
 	return menuForOrder;	
 }
 module.exports =constants;

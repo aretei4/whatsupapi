@@ -24,6 +24,7 @@ service.parseRequest = function (req) {
 	const { Body, From } = req.body;
 	parsereq.message = Body
 	parsereq.from = From
+	parsereq.to = req.body.To
 	parsereq.messageId = req.body.MessageSid;
 	parsereq.other = req.body
 	//console.log(" before sending"+JSON.stringify(parsereq))
@@ -33,8 +34,8 @@ service.parseRequest = function (req) {
 service.coversation = function (req) {
 	 // 
 	var request = service.parseRequest(req)
-	const fromNumber = request.message;
-	const userMessage = request.from;
+	const userMessage = request.message;
+	const  fromNumber = request.from;
 	defaultResponse = constants.getMenList(request);
 	if (!conversationState[fromNumber]) {
         conversationState[fromNumber] = { step: 1 };
