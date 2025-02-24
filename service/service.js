@@ -1,6 +1,6 @@
 var service = {};
 let conversationState=[];
-let defaultResponse = "Welcome! Utkal Hosptial ! Please choose an option:\n"
+var defaultResponse = "Welcome! Utkal Hosptial ! Please choose an option:\n"
 				+"1. Order Status\n"
 				+"2. Customer Support\n"
 				+"3. Latest Offers\n"
