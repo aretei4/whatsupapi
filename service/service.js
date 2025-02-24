@@ -1,5 +1,11 @@
 var service = {};
 let conversationState=[];
+let defaultResponse = "Welcome! Utkal Hosptial ! Please choose an option:\n"
+				+"1. Order Status\n"
+				+"2. Customer Support\n"
+				+"3. Latest Offers\n"
+				+"4. Exit;"
+				
 service.processMessage = function (body) {
 	 if (body === "hi") {
         return "Hello! How can I help you?";
@@ -23,7 +29,7 @@ service.parseRequest = function (req) {
 	return parsereq;
 	
 }
-service.coversation = function (userMessage,fromNumber) {
+service.coversation = async function (userMessage,fromNumber) {
 	 // const fromNumber = req.body.From;
 	
 	if (!conversationState[fromNumber]) {
@@ -34,7 +40,8 @@ service.coversation = function (userMessage,fromNumber) {
 	var reply = "Sorry, I didn’t understand that."
     switch (state.step) {
         case 1:
-            reply ="Hi! welcome to Utkal Hospital, may I Know your name?";
+            reply =defaultResponse;
+			//"Hi! welcome to Utkal Hospital, may I Know your name?";
             state.step = 2;
             break;
         case 2:
