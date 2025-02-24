@@ -40,11 +40,8 @@ service.coversation = async function (userMessage,fromNumber) {
 	var reply = "Sorry, I didn’t understand that."
     switch (state.step) {
         case 1:
-            reply ="Welcome! Utkal Hosptial ! Please choose an option:\n"
-				+"1. Order Status\n"
-				+"2. Customer Support\n"
-				+"3. Latest Offers\n"
-				+"4. Exit";
+            reply ="Welcome! Utkal Hosptial ! Please choose an option:\n";
+				
 			//"Hi! welcome to Utkal Hospital, may I Know your name?";
             state.step = 2;
             break;
