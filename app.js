@@ -16,7 +16,7 @@ var defaultResponse = constants.getMenList(request);
         ]
     };
 	 res.setHeader("Content-Type", "application/json");
-    res.json(response); // Send JSON response
+   res.status(200).send(JSON.stringify(response));
 });
 
 // Start the server
