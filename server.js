@@ -4,7 +4,7 @@ const express = require("express");
 const twilio = require("twilio");
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3050;
 
 // Twilio credentials from environment variables
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -47,7 +47,7 @@ app.post("/smsbk", (req, res) => {
     res.send(twiml.toString());
 });
 
-app.post("/sms", (req, res) => {
+app.post("/api/sms", (req, res) => {
 	const reque = service.parseRequest(req)
 	const { Body, From } = req.body;
 	const frm = req.body.From;  // Sender's WhatsApp number
