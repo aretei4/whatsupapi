@@ -90,6 +90,7 @@ dist
 # public
 
 # vuepress build output
+/.angular
 .vuepress/dist
 service/.vs/
 service/.vs/service/v17/.suo

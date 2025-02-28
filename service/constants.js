@@ -1,4 +1,5 @@
 var constants = {};
+//MONGO_URI=mongodb://localhost:27017/whatsapp_db
 var menuForOrder = {
   "to": "whatsapp:+1234567890",
   "from": "whatsapp:+TwilioNumber",

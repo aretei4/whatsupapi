@@ -1,4 +1,7 @@
 var constants = require('./constants')
+
+const msgDao = require('../db/MessageDao');
+
 var service = {};
 let conversationState=[];
 var defaultResponse = "Welcome! Utkal Hosptial ! Please choose an option:\n"
@@ -6,7 +9,7 @@ var defaultResponse = "Welcome! Utkal Hosptial ! Please choose an option:\n"
 				+"2. Customer Support\n"
 				+"3. Latest Offers\n"
 				+"4. Exit;"
-				
+	
 service.processMessage = function (body) {
 	 if (body === "hi") {
         return "Hello! How can I help you?";
@@ -33,6 +36,8 @@ service.parseRequest = function (req) {
 }
 service.coversation = function (req) {
 	 // 
+	 
+	 const data = msgDao.saveUser(); // Call the async functio
 	var request = service.parseRequest(req)
 	const userMessage = request.message;
 	const  fromNumber = request.from;
@@ -46,9 +51,7 @@ service.coversation = function (req) {
     switch (state.step) {
         case 1:
             reply ="Hi! welcome to Utkal Hospital, may I Know your name?";
-				
-			//"Hi! welcome to Utkal Hospital, may I Know your name?";
-            state.step = 2;
+			 state.step = 2;
             break;
         case 2:
             state.name = userMessage;
