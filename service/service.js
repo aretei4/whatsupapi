@@ -37,7 +37,7 @@ service.parseRequest = function (req) {
 service.coversation = function (req) {
 	 // 
 	 
-	 const data = msgDao.saveUser(); // Call the async functio
+//	 const data = msgDao.saveUser(); // Call the async functio
 	var request = service.parseRequest(req)
 	const userMessage = request.message;
 	const  fromNumber = request.from;
