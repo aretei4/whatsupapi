@@ -47,7 +47,7 @@ app.post("/smsbk", (req, res) => {
     res.send(twiml.toString());
 });
 
-app.post("/api/smsbk", (req, res) => {
+app.post("/api/sms", (req, res) => {
 	const reque = service.parseRequest(req)
 	const { Body, From } = req.body;
 	const frm = req.body.From;  // Sender's WhatsApp number
@@ -68,7 +68,7 @@ app.post("/api/smsbk", (req, res) => {
     res.send(twiml.toString());
 });
 // Send an SMS via Twilio API
-app.post("/api/sms", async (req, res) => {
+app.post("/api/smsbk", async (req, res) => {
     const from = req.body.From;
     const body = req.body.Body.trim().toLowerCase();
 
