@@ -47,7 +47,7 @@ app.post("/smsbk", (req, res) => {
     res.send(twiml.toString());
 });
 
-app.post("/api/sms", (req, res) => {
+app.post("/api/smsbk", (req, res) => {
 	const reque = service.parseRequest(req)
 	const { Body, From } = req.body;
 	const frm = req.body.From;  // Sender's WhatsApp number
@@ -68,21 +68,57 @@ app.post("/api/sms", (req, res) => {
     res.send(twiml.toString());
 });
 // Send an SMS via Twilio API
-app.post("/send-sms", async (req, res) => {
-    const { to, message } = req.body;
+app.post("/api/sms", async (req, res) => {
+    const from = req.body.From;
+    const body = req.body.Body.trim().toLowerCase();
 
-    try {
-        const response = await client.messages.create({
-            body: message,
-            from: twilioNumber,
-            to: to,
-        });
+    if (body === "menu") {
+        // Create Interactive Message JSON
+        const interactiveMessage = {
+            type: "interactive",
+            interactive: {
+                type: "button",
+                body: { text: "Welcome! Please choose an option:" },
+                action: {
+                    buttons: [
+                        { type: "reply", reply: { id: "order_food", title: "🍔 Order Food" } },
+                        { type: "reply", reply: { id: "check_status", title: "📦 Check Status" } },
+                        { type: "reply", reply: { id: "contact_support", title: "📞 Contact Support" } }
+                    ]
+                }
+            }
+        };
 
-        res.json({ success: true, sid: response.sid });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        try {
+            await client.messages.create({
+                from: twilioNumber,
+                to: from,
+                contentType: "application/json",
+                content: JSON.stringify(interactiveMessage)
+            });
+
+            res.status(200).send("Interactive message sent.");
+        } catch (error) {
+            console.error("Error sending message:", error);
+            res.status(500).send("Failed to send message.");
+        }
+    } else {
+        // Default response
+        try {
+            await client.messages.create({
+                from: twilioNumber,
+                to: from,
+                body: "Type 'menu' to see the available options."
+            });
+
+            res.status(200).send("Default message sent.");
+        } catch (error) {
+            console.error("Error sending message:", error);
+            res.status(500).send("Failed to send message.");
+        }
     }
 });
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

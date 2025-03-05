@@ -37,7 +37,7 @@ service.parseRequest = function (req) {
 service.coversation = function (req) {
 	 // 
 	 
-//	 const data = msgDao.saveUser(); // Call the async functio
+//	 const data = msgDao.saveMessage(); // Call the async functio
 	var request = service.parseRequest(req)
 	const userMessage = request.message;
 	const  fromNumber = request.from;
@@ -64,8 +64,9 @@ service.coversation = function (req) {
             state.step = 4;
             break;
         case 4:
-            state.color = userMessage;
+            state.name = userMessage;
             reply ="Awesome, "+state.name+"! Your appointment  is fixed at "+state.color+". Thanks for chatting!";
+			const data = msgDao.saveMessage(state);
             delete conversationState[fromNumber]; // Reset conversation
             break;
         default:

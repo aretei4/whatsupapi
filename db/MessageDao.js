@@ -1,23 +1,41 @@
 const mongoose = require('mongoose');
+const connectdb = require('./DbConnection')
 
 var messageDao = {};
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-	serverSelectionTimeoutMS: 30000, // 30 seconds
-  connectTimeoutMS: 30000, // 30 seconds
-});
+
 
 // Define a schema
-const userSchema = new mongoose.Schema({
-    name: String,
-    age: Number,
-});
+
 
 // Create a model
-const User = mongoose.model('User', userSchema);
 
+const userSchema = new mongoose.Schema({
+		name: String,
+		age: Number,
+	});
+	
+	
+	messageDao.saveMessage = async function(messg) {
+		await connectdb();
+	
+		const User = mongoose.model('User', userSchema);
+		
+	 try {
+			// Insert a document
+			const newUser = new User({ name: 'Jane Doe', age: 25 });
+			const savedUser = await newUser.save();
+			console.log('Inserted document:', savedUser);
+			 } catch (err) {
+			console.error(err);
+		} finally {
+			// Close the connection
+			mongoose.connection.close();
+			console.log('Disconnected from MongoDB');
+			return ""
+		}
+			
+	}
 messageDao.saveUser = async function() {
 // CRUD Operations
 
