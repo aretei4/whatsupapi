@@ -22,9 +22,11 @@ var defaultResponse = constants.getMenList(request);
 });
 
 app.post('/api/sms', (req, res) => {
-    const from = req.body.From; // User's phone number
-    const body = req.body.Body; // User's response
-
+   
+	 const { Body, From } = req.body;
+    console.log(`Received message: "${Body}" from ${From}`);
+	 const from = From // User's phone number
+    const body = Body; // User's response
     const twiml = new Twilio.twiml.MessagingResponse();
 
     // Handle the user's response
