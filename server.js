@@ -37,7 +37,7 @@ app.post("/api/sms", (req, res) => {
 
 
 // Endpoint to send a WhatsApp message
-app.post('/send-sms', async (req, res) => {
+app.post('/api/send-sms', async (req, res) => {
     const toNumber = req.body.to; // The recipient's WhatsApp number
     const messageBody = req.body.message; // The message to send
 
