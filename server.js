@@ -36,6 +36,26 @@ app.post("/api/sms", (req, res) => {
 });
 
 
+// Endpoint to send a WhatsApp message
+app.post('/send-sms', async (req, res) => {
+    const toNumber = req.body.to; // The recipient's WhatsApp number
+    const messageBody = req.body.message; // The message to send
+
+    try {
+        // Send the WhatsApp message
+        const message = await client.messages.create({
+            body: messageBody,
+            from: twilioNumber, // Replace with your Twilio WhatsApp number
+            to: `whatsapp:${toNumber}`
+        });
+
+        console.log(`Message sent to ${toNumber}: ${message.sid}`);
+        res.status(200).send(`Message sent: ${message.sid}`);
+    } catch (error) {
+        console.error(`Error sending message: ${error.message}`);
+        res.status(500).send(`Error: ${error.message}`);
+    }
+});
 
 app.post("/api/smsbk", (req, res) => {
 	const reque = service.parseRequest(req)
