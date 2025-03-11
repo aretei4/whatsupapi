@@ -15,11 +15,15 @@ const client = twilio(accountSid, authToken);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+const userSessions = {};
 
 // Handle incoming messages from Twilio
 app.post("/api/sms", (req, res) => {
     const { Body, From } = req.body;
     console.log(`Received message: "${Body}" from ${From}`);
+	
+	timeOut(From)
+			
 		 console.log(service.processMessage(Body))
     const twiml = new twilio.twiml.MessagingResponse();
 		const reque = service.parseRequest(req)
@@ -31,23 +35,7 @@ app.post("/api/sms", (req, res) => {
     res.type("text/xml").send(twiml.toString());
 });
 
-app.post("/smsbk", (req, res) => {
-	const { Body, From } = req.body;
-	 const from = req.body.From;  // Sender's WhatsApp number
-    const messageSid = req.body.MessageSid;  // Unique message ID
-    console.log(`Received message: "${Body}" from ${From}`);
-	const reque = service.parseRequest(req)
-    // Process the message
-    const replyMessage = service.processMessage(Body);
 
-    // Create Twilio XML response
-    const twiml = new twilio.twiml.MessagingResponse();
-    twiml.message(replyMessage);
-
-    // Send XML response back to Twilio
-    res.set("Content-Type", "text/xml");
-    res.send(twiml.toString());
-});
 
 app.post("/api/smsbk", (req, res) => {
 	const reque = service.parseRequest(req)
@@ -70,6 +58,32 @@ app.post("/api/smsbk", (req, res) => {
     res.send(twiml.toString());
 });
 
+function timeOut(userNumber){
+
+// Store the session with a timestamp
+			userSessions[userNumber] = {
+				lastMessageSentAt: new Date(),
+				timeout: 60 // 10 minutes (600 seconds)
+			};
+			
+    // Set a timeout to check for user response
+    setTimeout(async () => {
+        if (userSessions[userNumber] && !userSessions[userNumber].responded) {
+            console.log(`User ${userNumber} did not respond in time. Sending timeout message.`);
+
+            // Send a timeout message
+            await client.messages.create({
+                body: 'Sorry, you didn\'t respond in time. Please try again later.',
+                from: twilioNumber,
+                to: userNumber
+            });
+
+            // Clean up the session
+            delete userSessions[userNumber];
+        }
+    }, userSessions[userNumber].timeout * 1000);
+
+}
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
