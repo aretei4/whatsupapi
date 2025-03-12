@@ -22,7 +22,7 @@ app.post("/api/sms", (req, res) => {
     const { Body, From } = req.body;
     console.log(`Received message: "${Body}" from ${From}`);
 	
-	timeOut(From)
+	timeOut(req.body.To)
 			
 		 console.log(service.processMessage(Body))
     const twiml = new twilio.twiml.MessagingResponse();
@@ -92,11 +92,11 @@ function timeOut(userNumber){
             console.log(`User ${userNumber} did not respond in time. Sending timeout message.`);
 
             // Send a timeout message
-            await client.messages.create({
-                body: 'Sorry, you didn\'t respond in time. Please try again later.',
-                from: twilioNumber,
-                to: userNumber
-            });
+           // await client.messages.create({
+            //    body: 'Sorry, you didn\'t respond in time. Please try again later.',
+             //   from: 'whatsapp:'+twilioNumber,
+             //   to: userNumber
+           // });
 
             // Clean up the session
             delete userSessions[userNumber];
