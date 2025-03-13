@@ -30,7 +30,9 @@ hotelService.processHotelReq = function (reque,twiml) {
         twiml.message('Please describe your issue, and our support team will get back to you shortly.');
     } else {
         // Default response for invalid options
-        twiml.message(`Check out price in our website: http://3.109.96.126/hotel/hotel.html
+		const dynamicLink = "http://3.109.96.126/hotel/hotel.html";
+		
+        twiml.message(`Check out price in our website: ${dynamicLink}
 			Please reply with:
 			1. Check room availability
 			2. Book a room
