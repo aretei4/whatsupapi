@@ -18,7 +18,7 @@ app.use(express.json());
 const userSessions = {};
 
 // Handle incoming messages from Twilio
-app.post("/api/sms", (req, res) => {
+app.post("/api/smsbk", (req, res) => {
     const { Body, From } = req.body;
     console.log(`Received message: "${Body}" from ${From}`);
 	
@@ -57,7 +57,7 @@ app.post('/api/send-sms', async (req, res) => {
     }
 });
 
-app.post("/api/smsbk", (req, res) => {
+app.post("/api/sms", (req, res) => {
 	const reque = service.parseRequest(req)
 	const { Body, From } = req.body;
 	const frm = req.body.From;  // Sender's WhatsApp number

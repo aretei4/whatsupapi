@@ -50,12 +50,12 @@ service.coversation = function (req) {
 	var reply = "Sorry, I didn’t understand that."
     switch (state.step) {
         case 1:
-            reply ="Hi! welcome to Utkal Hospital, may I Know your name?";
+            reply ="Hi! welcome Mo Garage, may I Know your name?";
 			 state.step = 2;
             break;
         case 2:
             state.name = userMessage;
-            reply ='Nice to meet you,'+state.name +'! How old are you?';
+            reply ='Nice to meet you,'+state.name +'! Vechicle no please ?';
             state.step = 3;
             break;
         case 3:
