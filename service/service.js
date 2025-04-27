@@ -60,13 +60,13 @@ service.coversation = function (req) {
             break;
         case 3:
             state.age = userMessage;
-            reply ="Got it, "+state.name+". You are "+state.age+" years old. What is your favorite time for appointment ?";
+            reply ="Got it, "+state.name+". You'r vechicle No is "+state.age+" . What is your favorite time for appointment ?";
             state.step = 4;
             break;
         case 4:
-            state.name = userMessage;
+            state.color = userMessage;
             reply ="Awesome, "+state.name+"! Your appointment  is fixed at "+state.color+". Thanks for chatting!";
-			const data = msgDao.saveMessage(state);
+			//const data = msgDao.saveMessage(state);
             delete conversationState[fromNumber]; // Reset conversation
             break;
         default:
