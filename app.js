@@ -20,6 +20,16 @@ var defaultResponse = constants.getMenList(request);
 	 res.setHeader("Content-Type", "application/json");
    res.status(200).send(JSON.stringify(response));
 });
+app.post('api/save', (req, res) => {
+  const token = req.headers['Authorization']?.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, secret);
+    // Proceed with saving the document
+    res.status(200).json({ error: 0 });
+  } catch (err) {
+    res.status(403).json({ error: "Invalid token" });
+  }
+});
 
 app.post('/api/sms', (req, res) => {
    
