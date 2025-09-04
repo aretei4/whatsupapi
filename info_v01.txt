@@ -1,0 +1,12 @@
+# View logs
+docker-compose logs -f
+
+# Stop n8n
+docker-compose down
+
+# Update n8n
+docker-compose pull
+docker-compose up -d
+
+# Backup data
+docker run --rm --volumes-from n8n -v $(pwd):/backup ubuntu tar cvf /backup/n8n-backup.tar /home/node/.n8n
